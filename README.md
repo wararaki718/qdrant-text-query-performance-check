@@ -1,0 +1,1 @@
+# qdrant-text-query-performance-check
