@@ -8,8 +8,8 @@ from generate import ConditionGenerator, VectorGenerator
 
 def show(results: List[ScoredPoint]):
     print("[result]")
-    for result in results:
-        print(result)
+    for i, result in enumerate(results, start=1):
+        print(f"{i}-th: {result.id}: {result.score}")
     print("--------------------")
     print()
 

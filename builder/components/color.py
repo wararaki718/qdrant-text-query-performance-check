@@ -48,12 +48,24 @@ class ColorFilterMatchAnyFactory:
 
 class ColorFilterTextFactory:
     @classmethod
-    def create(cls, condition: SearchCondition) -> Optional[FieldCondition]:
+    def create(cls, condition: SearchCondition) -> Optional[Union[Filter, FieldCondition]]:
         if condition.color is None:
             return None
 
         text = " ".join(condition.color)
-        return FieldCondition(
-            key="color",
-            match=MatchText(text=text),
-        )
+        if len(condition.color) == 1:
+            return FieldCondition(
+                key="color",
+                match=MatchText(text=text),
+            )
+
+        should = []
+        for color in condition.color:
+            should.append(
+                FieldCondition(
+                    key="color",
+                    match=MatchText(text=color),
+                )
+            )
+
+        return Filter(should=should)

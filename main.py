@@ -21,7 +21,7 @@ def main():
     print(f"index created: {collection_name}")
 
     # data
-    n_data = 100000
+    n_data = 800000
     for i, points in enumerate(get_data(n_data=n_data, n_vector=dim)):
         _ = client.insert(collection_name, points)
     _ = client.create_payload_index(collection_name, "color")
@@ -49,7 +49,7 @@ def main():
         print("## QueryMatchAnyBuilder")
         print(f"'matchany condition' search time: {search_tm}")
         print(query.query_filter)
-        # show(response)
+        show(response)
         print()
 
         query = QueryBuilder.build(condition=condition, vector=vector)
@@ -59,7 +59,7 @@ def main():
         print("## QueryBuilder")
         print(f"search time: {search_tm}")
         print(query.query_filter)
-        # show(response)
+        show(response)
         print()
 
         query = QueryTextBuilder.build(condition=condition, vector=vector)
@@ -69,7 +69,7 @@ def main():
         print("## QueryTextBuilder")
         print(f"search time: {search_tm}")
         print(query.query_filter)
-        # show(response)
+        show(response)
         print()
 
     # delete index
